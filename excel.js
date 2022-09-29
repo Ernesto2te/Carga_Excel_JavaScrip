@@ -23,59 +23,133 @@ document.getElementById('button').addEventListener("click", () => {
         
          let workbook = XLSX.read(data,{type:"binary"});
         
-
-         //console.log(workbook);
-         workbook.SheetNames.forEach(sheet => {
-              let rowObject = XLSX.utils.sheet_to_row_object_array(workbook.Sheets[sheet]);
             
-              //asiganacion del parametro length del arreglo 
+         //console.log(workbook);
+        workbook.SheetNames.forEach(sheet => {
+            let rowObject = XLSX.utils.sheet_to_row_object_array(workbook.Sheets[sheet]);
+           
+            prueba1=JSON.stringify(rowObject);
+           correcion=prueba1.replace(/["]\s+|\s+["]/g,'"'); //tanto tiempo de investigacion para resumir lo aprendido en 3  lineas 
+           //>:V
+            //console.log(correcion);
+            jsonCorregido=JSON.parse(correcion);
+
+            //console.log(jsonCorregido);
+            //asiganacion del parametro length del arreglo 
           
-               let count=Object.keys(rowObject).length;
-              console.log(count);
+            let count=Object.keys(jsonCorregido).length;
+            //console.log(count);
               
                
-              for(let i=1;i<count;){
-                let nombre=rowObject[i].no_de_control;
-                console.log(nombre);
+              for(let i=0;i<count;){         
+                let matricula=jsonCorregido[i].Matricula;
+                let carrera=jsonCorregido[i].Carrera;
+                let nombre=jsonCorregido[i].Nombres;
+                let apellido_paterno=jsonCorregido[i].Apellido_Paterno;
+                let apellido_materno=jsonCorregido[i].Apellido_Materno;
+                let estado=jsonCorregido[i].Estado;
+                let correo=jsonCorregido[i].Correo;
+                let semestre=jsonCorregido[i].Semestre;
+                let generacion=jsonCorregido[i].Generacion;
+               
+                //console.log(nombre);
+                //validaciones
                 var expresion_matricula = /^\d{2}VC\d{4}$/;
-                if(!expresion_matricula.test(nombre)){
-                    console.log(i);
-                    alert("nel la fila"+i+"de la columna no_de_control"+nombre);
-                   return false;
+                var expresion_carrera=/^(ISIC)?(IFOR)?(IGEO)?(IIAL)?(IGEM)?$/;
+                var expresion_nombre=/^[a-zA-ZÑñÁáÉéÍíÓóÚúÜü\s]+$/;
+                var expresion_estado= /^(ACTIVO)?(INACTIVO)?$/;
+                var expresion_correo=/^[a-z]+\.[a-z]+\@itsvc.edu.mx$/;
+                var expresion_semestre = /^[01]{1}[012]{1}$/;
+                var expresion_generacion=/^20[0-9]{2}-20[0-9]{2}$/;
+
+                let num=i+2;
+                //validacion Matricula 
+                if(!expresion_matricula.test(matricula)){
+                    alert("Error  en la columna Matricula , en la fila  "+num+" cuyo valor es:  "+matricula+" no cumple los parametros establecidos");
+                   validacion= false;
                     }
-                console.log(nombre);
+                //validacion Matricula
+                
+                //validacion Carrera
+                if(!expresion_carrera.test(carrera)){
+                    alert("Error  en la columna Carrera , en la fila  "+num+"  cuyo valor es:  "+carrera+" no cumple los parametros establecidos");
+                    validacion= false;
+                    }
+                //validacion Carrera
+
+                //validacion Nombre
+                if(!expresion_nombre.test(nombre)){
+                    alert("Error  en la columna Nombre, en la fila  "+num+" cuyo valor es:  "+nombre+" no cumple los parametros establecidos");
+                    validacion= false;
+                    }
+                //validacion Nombre
+
+                //validacion Apellido Paterno
+                if(!expresion_nombre.test(apellido_paterno)){
+                    alert("Error  en la columna Apellido Paterno , en la fila  "+num+" cuyo valor es:  "+apellido_paterno+" no cumple los parametros establecidos");
+                    validacion= false;
+                    }
+                //validacion Apellido Paterno
+
+                //validacion Apellido Materno
+                if(!expresion_nombre.test(apellido_materno)){
+                    alert("Error  en la columna Apellido Materno , en la fila  "+num+" cuyo valor es:  "+apellido_materno+" no cumple los parametros establecidos");
+                    validacion= false;
+                    }
+                //validacion Apellido Materno
+
+                //validacion Estado
+                if(!expresion_estado.test(estado)){
+                    alert("Error  en la columna Estado , en la fila  "+num+" cuyo valor es:  "+estado+" no cumple los parametros establecidos");
+                    validacion= false;
+                    }
+                //validacion Estado
+
+                //validacion Correo
+                if(!expresion_correo.test(correo)){
+                    alert("Error  en la columna Correo , en la fila  "+num+" cuyo valor es:  "+correo+" no cumple los parametros establecidos");
+                    validacion= false;
+                    }
+                //validacion Correo
+
+                //validacion  Semestre
+                if(!expresion_semestre.test(semestre)){
+                    alert("Error  en la columna Semestre, en la fila  "+num+"cuyo valor es:  "+semestre+" no cumple los parametros establecidos");
+                    validacion= false;
+                    }
+                //validacion Semestre
+
+                //validacion Generacion
+                if(!expresion_generacion.test(generacion)){
+                    alert("Error  en la columna Generación , en la fila  "+num+"cuyo valor es:  "+generacion+" no cumple los parametros establecidos");
+                    validacion= false;
+                    }
+                //validacion Generacion
+                console.log(matricula,carrera,nombre,apellido_paterno,apellido_materno,estado,correo,semestre,generacion);;
                 
             
                 i++;
               }
-             
-            //   for(let item of rowObject){
-            //         let nombre = item.nombre_alumno;
-            //         let apellidoP =item.apellido_paterno;
-            //         let apellidoM=item.apellido_materno;
-            //         let matricula=item.no_de_control;
-            //         let semestre=item.semestre;
-            //         let carrera=item.carrera;
-            //         let correo=item.correo;
-            //         let Estado=item.estatus_alumno;
-            //         let generacion=item.generacion;
-            //        // console.log(generacion);
-            //             // const accion="insertarExcelAlumnos" 
-            //             // $.ajax({
-            //             //     type: 'GET',
-            //             //     url: "rutas.php",
-            //             //     data: {"nombre":nombre,"apellidoP":apellidoP,"apellidoM":apellidoM,"matricula":matricula,"semestre":semestre,"carrera":carrera,"correo":correo,"Estado":Estado,"generacion":generacion,"accion":accion}, //datos que se envian
-            //             //     contentType:false, //content type
-            //             //     processData: false,
-            //             //     success:function(resp){
-                               
-            //             //     },
-            //             //     error: function(datos,XMLHttpRequest, textStatus, errorThrown){
-            //             //      console.log(data);
-            //             //     }
-            //             // }
-            //             // )
-            //   }
+
+              if(validacion !== false){
+                $ajax({
+                    data:jsonCorregido,
+                    type:"GET",
+                    dataType:"json",
+                    URL:"rutas.php",
+                })
+                .done(function( data, textStatus, jqXHR ) {
+                    if ( console && console.log ) {
+                        console.log( "La exportacion se ha completado correctamente." );
+                    }
+                })
+                .fail(function( jqXHR, textStatus, errorThrown ) {
+                    if ( console && console.log ) {
+                        console.log( "La solicitud a fallado: " +  textStatus);
+                    }
+               });
+              }
+          
          });
         }
        
