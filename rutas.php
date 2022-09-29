@@ -9,7 +9,7 @@ $nombre="";
 $carrera="";
 
 $Estado="";
-
+$json="";
 $matricula="";
 $correo="";
 $apellidoP="";
@@ -18,6 +18,10 @@ $apellidoM="";
 $generacion="";
 //reasignar variables
 //if(!empty($_SESSION['id']))
+if(!empty($_POST['json']))
+{
+ $json=$_POST['json'];
+}
 
 if(!empty($_POST['carrera']))
 {
@@ -63,10 +67,10 @@ $class_Alumnos=new Alumnos();
 switch ($accion) {
     
    
-    case 'insertarExcelAlumnos':
+    case 'insertar':
         // //instanciando nuestra clase
-        $class_Alumnos->hola($nombre);
-        // echo $nombre;
+       
+        echo $json;
 
     break;
     case 'guardar':
