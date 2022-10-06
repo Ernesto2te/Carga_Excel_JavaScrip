@@ -3,7 +3,7 @@ class Conectar {
 	protected $dbh;
 		protected function Conexion(){
 			try {
-				$conectar = $this->dbh = new PDO("mysql:local=localhost;dbname=evaluacion_docente","root","");
+				$conectar = $this->dbh = new PDO("mysql:local=localhost;dbname=php_importarexcel","root","");
 				
 				return $conectar;	
 			} catch (Exception $e) {

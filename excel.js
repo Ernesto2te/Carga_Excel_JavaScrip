@@ -19,38 +19,24 @@ document.getElementById('button').addEventListener("click", () => {
         fileReader.readAsBinaryString(selectedFile);
         fileReader.onload = (event)=>{
             
-         let data = event.target.result;
-        
+        let data = event.target.result;
+        let jsonCorregido;
+        let accion;
+        let contador;
          let workbook = XLSX.read(data,{type:"binary"});
         
-         let jsonCorregido;
-         let validacion;   
-         let accion;
-         //console.log(workbook);
+         
         workbook.SheetNames.forEach(sheet => {
             let rowObject = XLSX.utils.sheet_to_row_object_array(workbook.Sheets[sheet]);
-           console.log(rowObject);
-
            //////////////////////////////////////////////////////////////
-
             prueba1=JSON.stringify(rowObject);
-            console.log(prueba1);
            correcion=prueba1.replace(/["]\s+|\s+["]/g,'"'); //tanto tiempo de investigacion para resumir lo aprendido en 3  lineas 
            //>:V/
-            console.log(correcion);
             jsonCorregido=JSON.parse(correcion);
-
             //////////////////////////////////////////////////////////7777
-
-            console.log(jsonCorregido);
             //asiganacion del parametro length del arreglo 
-          
             let count=Object.keys(jsonCorregido).length;
-            //console.log(count);
-              
-            let contador;
-            let i;
-            let accion
+
               for( i=0;i<count;){         
                 let matricula=jsonCorregido[i].Matricula;
                 let carrera=jsonCorregido[i].Carrera;
@@ -146,34 +132,24 @@ document.getElementById('button').addEventListener("click", () => {
                 
                 accion="ingresar_Json";
               }
-              
-              console.log(accion);
-             
-          
+
          });
+         
+         enviarJson(jsonCorregido);
         
-     
-        //  if(validacion != "false"){
-        //     accion="insertar";
-        //     $ajax({
-        //         data:{"json":jsonCorregido,"accion":accion},
-        //         type:'POST',
-        //         dataType'JSON',
-        //         URL:'rutas.php',
-        //     })
-        //     .done(function( data, textStatus, jqXHR ) {
-        //         if ( console && console.log ) {
-        //             console.log( "La exportacion se ha completado correctamente." );
-        //         }
-        //     })
-        //     .fail(function( jqXHR, textStatus, errorThrown ) {
-        //         if ( console && console.log ) {
-        //             console.log( "La solicitud a fallado: " +  textStatus);
-        //         }
-        //    });
-        //   }
       
+            
         }
        
     }
+    
 });
+
+function enviarJson(jsonCorregido){
+    //console.log(jsonCorregido);
+    let array =JSON.stringify(jsonCorregido);
+    $.post('rutas.php',{data: array},function(result){
+        console.log(result);
+    })
+}
+

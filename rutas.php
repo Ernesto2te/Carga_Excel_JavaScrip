@@ -18,9 +18,10 @@ $apellidoM="";
 $generacion="";
 //reasignar variables
 //if(!empty($_SESSION['id']))
-if(!empty($_POST['json']))
+if(!empty($_POST['data']))
 {
- $json=$_POST['json'];
+ $json=$_POST['data'];
+ $accion='excel';
 }
 
 if(!empty($_POST['carrera']))
@@ -63,14 +64,19 @@ if(!empty($_POST['generacion'])){
     $generacion=$_POST['generacion'];
 }
 
+
 $class_Alumnos=new Alumnos();
 switch ($accion) {
     
    
-    case 'insertar':
+    case 'excel':
         // //instanciando nuestra clase
-       
-        echo $json;
+
+      
+        $productos=json_decode($json,true);
+        //echo var_dump($productos);
+        $class_Alumnos->inserJson($productos);
+   
 
     break;
     case 'guardar':
