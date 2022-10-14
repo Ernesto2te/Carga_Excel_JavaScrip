@@ -50,7 +50,7 @@ document.getElementById('button').addEventListener("click", () => {
               
                 //validaciones
                 var expresion_matricula = /^\d{2}VC\d{4}$/;
-                var expresion_carrera=/^(ISIC)?(IFOR)?(IGEO)?(IIAL)?(IGEM)?$/;
+                var expresion_carrera=/^([A-Z]{4})-(\d{4})-(\d{3})$/;
                 var expresion_nombre=/^[a-zA-ZÑñÁáÉéÍíÓóÚúÜü\s]+$/;
                 var expresion_estado= /^(ACTIVO)?(INACTIVO)?$/;
                 var expresion_correo=/^[a-z]+\.[a-z]+\@itsvc.edu.mx$/;
@@ -123,15 +123,9 @@ document.getElementById('button').addEventListener("click", () => {
                     i++;      
  
                 //validacion Generacion
-                console.log(matricula,carrera,nombre,apellido_paterno,apellido_materno,estado,correo,semestre,generacion);
-               
- 
               }
           
-              if ((contador+1)==count){
-                
-                accion="ingresar_Json";
-              }
+              
 
          });
          

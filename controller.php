@@ -16,7 +16,7 @@ class Alumnos extends Conectar{
         $correo = $Array['Correo'];
         $semestre= $Array['Semestre'];
         $generacion = $Array['Generacion'];
-        $idrol ="1";
+        $idrol = 1;
      
         
 
@@ -39,6 +39,7 @@ class Alumnos extends Conectar{
                          ]);
       
      }
+
 
 
      }

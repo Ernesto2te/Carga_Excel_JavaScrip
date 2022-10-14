@@ -74,8 +74,8 @@ switch ($accion) {
 
       
         $productos=json_decode($json,true);
-        //echo var_dump($productos);
-        $class_Alumnos->inserJson($productos);
+        echo var_dump($productos);
+       // $class_Alumnos->inserJson($productos);
    
 
     break;
